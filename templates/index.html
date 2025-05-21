@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trưng Bày Video</title>
+</head>
+<body>
+    <h1>🎥 Video Trưng Bày</h1>
+    {% for video in videos %}
+        <div style="margin: 20px;">
+            <video width="600" controls>
+                <source src="{{ url_for('uploaded_file', filename=video) }}" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ video.
+            </video>
+            <p>{{ video }}</p>
+        </div>
+    {% endfor %}
+    <p><a href="{{ url_for('upload') }}">🔐 Đăng nhập để đăng video</a></p>
+</body>
+</html>
