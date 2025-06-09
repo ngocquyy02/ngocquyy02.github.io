@@ -1,1782 +1,830 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <!-- Thiết lập mã hóa, viewport và SEO -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bộ sưu tập video mẫu độc đáo với các chủ đề Âm Nhạc, Du Lịch, Vlog, Sự Kiện và hơn thế nữa.">
-    <meta name="keywords" content="video mẫu, âm nhạc, du lịch, vlog, sự kiện, bộ sưu tập">
-    <meta name="author" content="Ngọc Quýy">
-    <title>Bộ Sưu Tập Video Mẫu</title>
-    <!-- Nhúng font Poppins từ Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>CV Của Bạn - [Tên của bạn]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* === CSS RESET === */
+        /* --- Định nghĩa các biến màu sắc và giá trị chung --- */
+        :root {
+            --primary-gradient: linear-gradient(90deg, #0066FF, #6B46FF); /* Gradient chính: Xanh điện -> Tím điện tử */
+            --secondary-neon: #00FF88; /* Màu phụ: Xanh neon */
+            --holographic-silver: #C0C0C0; /* Bạc Holographic cho văn bản phụ */
+            --deep-space-bg: #0A0A0F; /* Nền không gian sâu thẳm */
+            --pure-white: #FFFFFF; /* Trắng tinh khiết */
+            --glass-blur: blur(10px); /* Độ mờ cho hiệu ứng Glassmorphism */
+            --glass-shadow: rgba(0, 0, 0, 0.2); /* Bóng đổ cho hiệu ứng Glassmorphism */
+            --transition-speed: 0.3s ease-in-out; /* Tốc độ chuyển động mặc định */
+        }
+
+        /* --- Cài đặt lại CSS mặc định của trình duyệt --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* === BODY STYLING === */
+        /* --- Định dạng chung cho Body --- */
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #2E1A47, #483D8B, #E0E0E0);
-            background-size: 200% 200%;
-            animation: gradientFlow 12s ease infinite;
-            color: #fff;
-            min-height: 100vh;
-            scroll-behavior: smooth;
-            position: relative;
-            overflow-x: hidden;
+            font-family: 'Inter', 'Poppins', sans-serif; /* Font chữ hiện đại */
+            background: var(--deep-space-bg); /* Nền tối sâu */
+            color: var(--holographic-silver); /* Màu chữ mặc định */
+            line-height: 1.6; /* Chiều cao dòng */
+            overflow-x: hidden; /* Ngăn cuộn ngang */
         }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- Định dạng chung cho thẻ a (liên kết) --- */
+        a {
+            color: var(--secondary-neon); /* Màu liên kết */
+            text-decoration: none; /* Bỏ gạch chân */
+            transition: color var(--transition-speed); /* Hiệu ứng chuyển màu khi hover */
         }
 
-        /* === NAVIGATION BAR === */
-        /* Styling cho menu điều hướng, trượt từ phải vào với hiệu ứng nổi */
-        nav {
-            position: fixed;
-            top: 0;
-            right: -320px; /* Ẩn ngoài màn hình ban đầu */
-            width: 320px; /* Chiều rộng menu */
-            height: 100vh;
-            background: linear-gradient(to bottom, rgba(46, 26, 71, 0.92), rgba(72, 61, 139, 0.92));
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 1000;
-            transition: right 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease, transform 0.6s ease;
-            opacity: 0;
-            transform: scale(0.95) rotate(2deg); /* Hiệu ứng thu nhỏ và xoay nhẹ */
-            border-radius: 15px 0 0 15px; /* Góc bo tròn bên trái */
-            box-shadow: -6px 0 15px rgba(0, 0, 0, 0.5);
-            border-left: 2px solid rgba(224, 224, 224, 0.3);
+        a:hover {
+            color: var(--pure-white); /* Màu liên kết khi hover */
+        }
+
+        /* --- Phần Header & Thanh điều hướng --- */
+        .main-header {
+            background-color: transparent; /* Nền trong suốt ban đầu */
+            padding: 1.5rem 0;
+            position: fixed; /* Cố định trên cùng */
+            width: 100%;
+            z-index: 1000; /* Luôn hiển thị trên cùng */
+            transition: background-color var(--transition-speed); /* Hiệu ứng chuyển màu nền */
+        }
+
+        .main-header.scrolled {
+            background-color: rgba(10, 10, 15, 0.8); /* Nền tối hơn khi cuộn */
+            backdrop-filter: var(--glass-blur); /* Hiệu ứng mờ nền */
+        }
+
+        .navbar {
             display: flex;
-            flex-direction: column;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        nav.active {
-            right: 0;
-            opacity: 1;
-            transform: scale(1) rotate(0deg); /* Trở về trạng thái bình thường */
-            box-shadow: -8px 0 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(224, 224, 224, 0.5);
-        }
-
-        /* Danh sách menu */
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            padding: 30px 20px;
-            margin: 0;
-            width: max-content;
-        }
-
-        /* Hiệu ứng cho từng mục menu */
-        nav ul li {
-            opacity: 0;
-            transform: translateX(20px); /* Ẩn sang phải ban đầu */
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        nav.active ul li {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Để thêm mục menu mới:
-           - Thêm <li><a href="#section-id">Tên mục</a></li> vào danh sách ul dưới đây
-           - Đảm bảo section-id khớp với id của section tương ứng
-           - Hiệu ứng sẽ tự áp dụng cho mục mới
-        */
-        nav ul li:nth-child(1) { transition-delay: 0.1s; }
-        nav ul li:nth-child(2) { transition-delay: 0.15s; }
-        nav ul li:nth-child(3) { transition-delay: 0.2s; }
-        nav ul li:nth-child(4) { transition-delay: 0.25s; }
-        nav ul li:nth-child(5) { transition-delay: 0.3s; }
-        nav ul li:nth-child(6) { transition-delay: 0.35s; }
-        nav ul li:nth-child(7) { transition-delay: 0.4s; }
-        nav ul li:nth-child(8) { transition-delay: 0.45s; }
-        nav ul li:nth-child(9) { transition-delay: 0.5s; }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 12px 28px;
-            border-radius: 50px;
-            background: linear-gradient(to right, #6A5ACD, #483D8B);
-            border: 2px solid #E0E0E0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            min-width: 140px;
-            text-align: center;
-        }
-
-        nav ul li a:hover {
-            background: linear-gradient(to right, #D8BFD8, #E0E0E0);
-            color: #2E1A47;
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 6px 18px rgba(224, 224, 224, 0.8), 0 0 12px rgba(106, 90, 205, 0.6);
-            font-style: italic;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: #E0E0E0;
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 60%;
-        }
-
-        /* Hiệu ứng gợi ý vuốt */
-        .swipe-hint {
-            position: absolute;
-            top: 50%;
-            left: 12px;
-            transform: translateY(-50%);
-            width: 35px;
-            height: 35px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>') no-repeat center;
-            background-size: 24px;
-            animation: swipePulse 1.8s ease-in-out infinite;
-            z-index: 1001;
-            filter: drop-shadow(0 0 10px rgba(224, 224, 224, 0.8));
-            transition: background-color 0.3s ease;
-        }
-
-        .swipe-hint:hover {
-            background-color: rgba(106, 90, 205, 0.3);
-            border-radius: 50%;
-        }
-
-        @keyframes swipePulse {
-            0%, 100% { transform: translateY(-50%) translateX(0); opacity: 0.7; }
-            50% { transform: translateY(-50%) translateX(-10px); opacity: 1; }
-        }
-
-        /* === TOGGLE NAV BUTTON === */
-        /* Nút bật/tắt menu với hiệu ứng nổi và xoay */
-        #toggle-nav {
-            position: fixed;
-            top: 12px;
-            right: 18px;
-            z-index: 1100;
-            width: 48px;
-            height: 48px;
-            padding: 0;
-            background: linear-gradient(135deg, #6A5ACD, #E0E0E0);
-            border: 2px solid #E0E0E0;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 12px rgba(224, 224, 224, 0.5);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        #toggle-nav:hover {
-            background: linear-gradient(135deg, #E0E0E0, #D8BFD8);
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 6px 18px rgba(224, 224, 224, 0.8), 0 0 15px rgba(106, 90, 205, 0.6);
-            animation: pulseGlow 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 12px rgba(224, 224, 224, 0.5); }
-            50% { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 20px rgba(224, 224, 224, 0.8); }
-        }
-
-        #toggle-nav .hamburger {
-            width: 26px;
-            height: 18px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
             justify-content: space-between;
-        }
-
-        #toggle-nav .hamburger span {
-            width: 100%;
-            height: 3px;
-            background: #fff;
-            border-radius: 3px;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            transform-origin: center;
-        }
-
-        #toggle-nav.active .hamburger span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        #toggle-nav.active .hamburger span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-
-        #toggle-nav.active .hamburger span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        /* Hiệu ứng ripple khi click nút */
-        #toggle-nav::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            background: rgba(224, 224, 224, 0.4);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.5s ease;
-            pointer-events: none;
-        }
-
-        #toggle-nav:active::after {
-            width: 100px;
-            height: 100px;
-            opacity: 0;
-        }
-
-        /* === HEADER === */
-        /* Tiêu đề chính với hiệu ứng nổi */
-        header {
-            text-align: center;
-            padding: 80px 20px 40px;
-            background: linear-gradient(to bottom, rgba(46, 26, 71, 0.7), transparent);
-        }
-
-        header h1 {
-            font-size: 36px;
-            font-weight: 600;
-            color: #fff;
-            background: linear-gradient(to right, #D8BFD8, #E0E0E0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            padding: 12px 25px;
-            border: 2px solid #E0E0E0;
-            border-radius: 12px;
-            display: inline-block;
-            box-shadow: 0 4px 10px rgba(224, 224, 224, 0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        header h1.visible {
-            opacity: 1;
-            transform: translateY(0);
-            animation: bounceIn 0.8s ease;
-        }
-
-        header h1:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 6px 15px rgba(224, 224, 224, 0.7);
-        }
-
-        @keyframes bounceIn {
-            0% { transform: translateY(20px); opacity: 0; }
-            60% { transform: translateY(-10px); opacity: 1; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* === WELCOME SECTION === */
-        /* Màn hình chào với hiệu ứng zoom và fade */
-        #welcome {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #2E1A47, #483D8B, #E0E0E0);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            
-            z-index: 2000;
-            pointer-events: none;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
-        #welcome h2, #welcome p, #welcome a.cta-button {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        #welcome h2.visible, #welcome p.visible, #welcome a.cta-button.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        #welcome h2 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #fff;
-            background: linear-gradient(to right, #6A5ACD, #E0E0E0);
-            padding: 12px 25px;
-            border: 2px solid #E0E0E0;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.4s ease;
-            transition-delay: 0.2s;
-        }
-
-        #welcome h2:hover {
-            transform: scale(1.05);
-        }
-
-        #welcome p {
-            font-size: 16px;
-            color: #fff;
-            margin: 15px auto;
-            max-width: 600px;
-            line-height: 1.6;
-            transition-delay: 0.4s;
-        }
-
-        #welcome a.cta-button {
-            pointer-events: auto;
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: linear-gradient(to right, #BA55D3, #E0E0E0);
-            color: #2E1A47;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 25px;
-            border: 2px solid #E0E0E0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-            transition-delay: 0.6s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #welcome a.cta-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 18px rgba(224, 224, 224, 0.8);
-            background: linear-gradient(to right, #E0E0E0, #BA55D3);
-        }
-
-        #welcome a.cta-button::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            background: rgba(224, 224, 224, 0.4);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.5s ease;
-            pointer-events: none;
-        }
-
-        #welcome a.cta-button:active::after {
-            width: 150px;
-            height: 150px;
-            opacity: 0;
-        }
-
-        /* === VIDEO SECTIONS === */
-        /* Các section video với hiệu ứng trượt lên */
-        .video-section {
-            padding: 40px 15px;
             max-width: 1200px;
             margin: 0 auto;
-            background: linear-gradient(to right, rgba(46, 26, 71, 0.1), rgba(224, 224, 224, 0.1));
-            border-radius: 15px;
-            border: 1px solid #E0E0E0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            padding: 0 2rem;
         }
 
-        .video-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-            animation: slideUp 0.8s ease;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--primary-gradient); /* Áp dụng gradient cho chữ */
+            -webkit-background-clip: text; /* Cắt gradient theo hình dạng chữ */
+            -webkit-text-fill-color: transparent; /* Làm trong suốt màu chữ để thấy gradient */
         }
 
-        @keyframes slideUp {
-            0% { transform: translateY(30px); opacity: 0; }
-            60% { transform: translateY(-10px); opacity: 1; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        .video-section h2 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 10px 20px;
-            background: linear-gradient(to right, #6A5ACD, #E0E0E0);
-            border: 2px solid #E0E0E0;
-            border-radius: 10px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .video-section h2:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 12px rgba(224, 224, 224, 0.7);
-        }
-
-        /* Lưới video */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 15px;
-            position: relative;
-        }
-
-        /* Để thêm section video mới:
-           - Sao chép section.video-section và thay đổi id (ví dụ: id="new-section")
-           - Cập nhật thẻ h2 và class .video-grid
-           - Thêm vào nav ul một mục mới: <li><a href="#new-section">Tên Section</a></li>
-           - Thêm màu sắc cụ thể vào phần SECTION-SPECIFIC COLORS
-        */
-
-        /* === VIDEO CARDS === */
-        /* Thẻ video với hiệu ứng zoom và xoay */
-        .video-card {
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
+        .nav-links {
+            list-style: none; /* Bỏ dấu chấm đầu dòng */
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            position: relative;
-            border: 1px solid rgba(224, 224, 224, 0.3);
-            z-index: 1;
-            cursor: pointer;
-            opacity: 0;
-            transform: scale(0.9) rotate(2deg);
         }
 
-        .video-card.visible {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-            animation: cardPop 0.6s ease;
+        .nav-links li {
+            margin-left: 2rem; /* Khoảng cách giữa các mục menu */
         }
 
-        @keyframes cardPop {
-            0% { transform: scale(0.9) rotate(2deg); opacity: 0; }
-            60% { transform: scale(1.05) rotate(-1deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        .video-card.hidden-video {
-            display: none;
-        }
-
-        .video-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 8px 15px rgba(46, 26, 71, 0.5), 0 0 25px rgba(224, 224, 224, 0.7);
-            animation: glowPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 5px 10px rgba(46, 26, 71, 0.5), 0 0 15px rgba(224, 224, 224, 0.7); }
-            50% { box-shadow: 0 8px 20px rgba(46, 26, 71, 0.6), 0 0 25px rgba(224, 224, 224, 0.9); }
-        }
-
-        .video-card.expanded {
-            position: relative;
-            grid-column: 1 / -1;
-            z-index: 10;
-            transform: scale(1);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-            margin: 10px auto;
-            max-width: 800px;
-            width: 100%;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            animation: expandPop 0.5 []*; ease;
-        }
-
-        @keyframes expandPop {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            60% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .video-card.expanded video {
-            max-height: 450px;
-            width: 100%;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .video-card.expanded h3 {
-            font-size: 22px;
-            padding: 20px 0;
-        }
-
-        .video-card video {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            border-radius: 10px;
-            transition: transform 0.4s ease, max-height 0.5s ease;
-            position: relative;
-            z-index: 1;
-            background: #000;
-        }
-
-        .video-card:hover video {
-            transform: scale(1.05);
-        }
-
-        .video-card .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: linear-gradient(to right, #BA55D3, #E0E0E0);
-            color: #2E1A47;
-            padding: 5px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            z-index: 2;
-            transition: transform 0.3s ease;
-        }
-
-        .video-card:hover .badge {
-            transform: scale(1.1);
-        }
-
-        .video-card h3 {
-            padding: 15px 0;
-            color: #2E1A47;
-            font-size: 18px;
-            font-weight: 600;
-            text-align: center;
-            background: linear-gradient(to right, #D8BFD8, #E0E0E0);
-            border-radius: 6px;
-            width: 90%;
-            margin-top: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, font-size 0.4s ease;
-            position: relative;
-        }
-
-        .video-card h3:hover {
-            transform: scale(1.05);
-        }
-
-        .video-card h3:hover::after {
-            content: attr(data-description);
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(46, 26, 71, 0.9);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            width: 200px;
-            text-align: center;
-            z-index: 3;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .video-card video:not([src]) + h3::after {
-            content: 'Video không khả dụng';
-            display: block;
-            color: #ff4d4d;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* Nút "Xem Thêm" với hiệu ứng nổi */
-        .toggle-videos {
-            display: block;
-            margin: 20px auto 0;
-            padding: 10px 20px;
-            background: linear-gradient(to right, #6A5ACD, #E0E0E0);
-            color: #fff;
-            font-size: 16px;
+        .nav-links a {
+            color: var(--holographic-silver);
             font-weight: 500;
-            border: 2px solid #E0E0E0;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
             position: relative;
-            overflow: hidden;
         }
 
-        .toggle-videos:hover {
-            background: linear-gradient(to right, #D8BFD8, #E0E0E0);
-            color: #2E1A47;
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 5px 12px rgba(224, 224, 224, 0.7);
-            animation: buttonPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes buttonPulse {
-            0%, 100% { box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); }
-            50% { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(224, 224, 224, 0.8); }
-        }
-
-        .toggle-videos::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 0;
-            background: rgba(224, 224, 224, 0.4);
-            border-radius: 50%;
+            width: 0; /* Chiều rộng ban đầu bằng 0 */
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--secondary-neon); /* Màu gạch chân */
+            transition: width var(--transition-speed); /* Hiệu ứng gạch chân mở rộng */
+        }
+
+        .nav-links a:hover::after {
+            width: 100%; /* Chiều rộng 100% khi hover */
+        }
+
+        /* --- Phần Hero (Giới thiệu đầu trang) --- */
+        .hero-section {
+            position: relative;
+            height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--pure-white);
+            overflow: hidden;
+        }
+
+        #hero-video {
+            position: absolute;
             top: 50%;
             left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Đặt video dưới nội dung */
             transform: translate(-50%, -50%);
-            transition: all 0.5s ease;
+            background-size: cover;
+            opacity: 0.7; /* Điều chỉnh độ mờ để văn bản dễ đọc hơn */
+        }
+
+        .hero-overlay {
+            position: relative;
+            z-index: 1; /* Đặt nội dung trên video */
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInScale 1s forwards; /* Animation xuất hiện */
+        }
+
+        .hero-title span {
+            background: var(--primary-gradient); /* Gradient cho tên */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            animation: fadeInScale 1.2s forwards; /* Animation xuất hiện với độ trễ */
+            animation-delay: 0.2s;
+            opacity: 0; /* Ẩn ban đầu */
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--primary-gradient); /* Gradient cho nút */
+            color: var(--pure-white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform var(--transition-speed); /* Hiệu ứng di chuyển khi hover */
+            animation: fadeInScale 1.4s forwards; /* Animation xuất hiện với độ trễ */
+            animation-delay: 0.4s;
+            opacity: 0; /* Ẩn ban đầu */
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05); /* Di chuyển và phóng to nhẹ */
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5); /* Hiệu ứng phát sáng neon */
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3); /* Hiệu ứng gợn sóng trắng */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+
+        /* --- Định dạng chung cho các Section --- */
+        .section {
+            padding: 4rem 2rem;
+            margin: 4rem auto;
+            max-width: 1000px; /* Chiều rộng tối đa của nội dung */
+        }
+
+        .section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: var(--primary-gradient); /* Gradient cho tiêu đề section */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-neon); /* Gạch chân dưới tiêu đề */
+            border-radius: 2px;
+        }
+
+        /* --- Phong cách Glassmorphism cho các thẻ nội dung --- */
+        .glassmorphism-card {
+            background: rgba(255, 255, 255, 0.05); /* Nền hơi trong suốt */
+            backdrop-filter: var(--glass-blur); /* Hiệu ứng mờ nền */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Viền mỏng */
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 var(--glass-shadow); /* Bóng đổ */
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glassmorphism-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.1), transparent); /* Hiệu ứng gradient trên viền */
+            transform: rotate(45deg);
             pointer-events: none;
+            animation: rotateBorder 10s linear infinite; /* Animation xoay viền */
         }
 
-        .toggle-videos:active::after {
-            width: 150px;
-            height: 150px;
-            opacity: 0;
+        /* --- Định dạng cho ảnh đại diện (Avatar) --- */
+        .avatar-container {
+            display: flex;
+            justify-content: center; /* Căn giữa ảnh */
+            margin-bottom: 2rem; /* Khoảng cách dưới ảnh */
         }
 
-        /* === SECTION-SPECIFIC COLORS === */
-        /* Màu sắc riêng cho từng section, thêm màu mới tại đây khi thêm section */
-        #music h2 { background: linear-gradient(to right, #6A5ACD, #BA55D3); }
-        #music { background: linear-gradient(to right, rgba(106, 90, 205, 0.1), rgba(186, 85, 211, 0.1)); }
-        #travel h2 { background: linear-gradient(to right, #8A2BE2, #D8BFD8); }
-        #travel { background: linear-gradient(to right, rgba(138, 43, 226, 0.1), rgba(216, 191, 216, 0.1)); }
-        #vlog h2 { background: linear-gradient(to right, #2E1A47, #C71585); }
-        #vlog { background: linear-gradient(to right, rgba(46, 26, 71, 0.1), rgba(199, 21, 133, 0.1)); }
-        #event h2 { background: linear-gradient(to right, #6A5ACD, #D8BFD8); }
-        #event { background: linear-gradient(to right, rgba(106, 90, 205, 0.1), rgba(216, 191, 216, 0.1)); }
-        #haha h2 { background: linear-gradient(to right, #9400D3, #E0E0E0); }
-        #haha { background: linear-gradient(to right, rgba(148, 0, 211, 0.1), rgba(224, 224, 224, 0.1)); }
-        #other h2 { background: linear-gradient(to right, #9400D3, #E0E0E0); }
-        #other { background: linear-gradient(to right, rgba(148, 0, 211, 0.1), rgba(224, 224, 224, 0.1)); }
+        .avatar {
+            width: 150px; /* Chiều rộng ảnh */
+            height: 150px; /* Chiều cao ảnh */
+            border-radius: 50%; /* Bo tròn 50% tạo hình tròn */
+            object-fit: cover; /* Đảm bảo ảnh đầy đủ trong khung */
+            border: 3px solid var(--secondary-neon); /* Viền màu neon */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bóng đổ cho ảnh */
+        }
 
-        /* === FOOTER === */
-        /* Footer với hiệu ứng nổi cho phần liên hệ */
+        /* --- Định dạng cho phần Thông tin cá nhân --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Bố cục lưới linh hoạt */
+            gap: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-grid p strong {
+            color: var(--pure-white); /* Màu đậm cho tiêu đề thông tin */
+        }
+
+        /* --- Định dạng cho phần Kỹ năng --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 cột */
+            gap: 3rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-neon); /* Màu neon cho tiêu đề kỹ năng */
+        }
+
+        .skill-category ul {
+            list-style: none; /* Bỏ dấu chấm đầu dòng */
+        }
+
+        .skill-category li {
+            background: rgba(0, 255, 136, 0.08); /* Nền hơi trong cho từng kỹ năng */
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 0.7rem 1.2rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            display: inline-block; /* Hiển thị trên cùng một dòng */
+            margin-right: 0.8rem;
+            color: var(--pure-white);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng khi hover */
+        }
+
+        .skill-category li:hover {
+            transform: translateY(-3px); /* Di chuyển nhẹ lên trên */
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4); /* Phát sáng nhẹ */
+        }
+
+        /* --- Định dạng cho Học vấn & Kinh nghiệm --- */
+        .education-item, .experience-item, .project-item, .certification-item, .language-item {
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--secondary-neon); /* Thanh dọc màu neon */
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .education-item:last-child, .experience-item:last-child, .project-item:last-child, .certification-item:last-child, .language-item:last-child {
+            margin-bottom: 0; /* Bỏ khoảng cách dưới cùng cho mục cuối */
+        }
+
+        .education-item h3, .experience-item h3, .project-item h3, .certification-item h3, .language-item h3 {
+            font-size: 1.6rem;
+            color: var(--pure-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .duration {
+            font-style: italic; /* Chữ nghiêng cho thời gian */
+            color: var(--holographic-silver);
+            margin-bottom: 0.8rem;
+        }
+
+        .experience-item ul {
+            list-style-type: disc; /* Dấu chấm đầu dòng */
+            margin-left: 1.5rem;
+            color: var(--holographic-silver);
+        }
+
+        .experience-item ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item ul li strong {
+            color: var(--pure-white); /* Màu đậm cho kết quả nổi bật */
+        }
+
+        /* --- Định dạng cho Form Liên hệ --- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group label {
+            display: block; /* Mỗi label trên một dòng */
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--pure-white);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.08); /* Nền input hơi trong */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Viền input */
+            border-radius: 8px;
+            color: var(--pure-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-neon); /* Viền màu neon khi focus */
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2); /* Bóng đổ phát sáng khi focus */
+        }
+
+        .contact-form .cta-button {
+            align-self: flex-start; /* Nút nằm bên trái */
+            margin-top: 1rem;
+        }
+
+        /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 30px 15px;
-            background: linear-gradient(to right, #2E1A47, #483D8B);
-            color: #fff;
-            margin-top: 40px;
-            box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.3);
+            padding: 3rem 0;
+            color: var(--holographic-silver);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Đường kẻ ngang phía trên */
+            margin-top: 4rem;
         }
 
-        .contact-info {
-            margin-top: 15px;
-            padding: 15px;
-            background: linear-gradient(to right, #D8BFD8, #E0E0E0);
-            border-radius: 12px;
-            border: 1px solid #E0E0E0;
-            display: inline-block;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.4s ease;
-            opacity: 0;
-            transform: translateY(20px);
+        /* --- Các Animation --- */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .contact-info.visible {
-            opacity: 1;
-            transform: translateY(0);
-            animation: slideUp 0.8s ease;
+        @keyframes rotateBorder {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        .contact-info:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(224, 224, 224, 0.7);
+        /* --- Responsive Design (Điều chỉnh giao diện trên các thiết bị khác nhau) --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column; /* Stack các mục nav theo chiều dọc */
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap; /* Cho phép các mục xuống dòng */
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 3rem; /* Giảm kích thước font */
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem; /* Giảm kích thước font */
+            }
+
+            .section {
+                padding: 2.5rem 1.5rem;
+                margin: 2.5rem auto;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .info-grid, .skills-grid {
+                grid-template-columns: 1fr; /* Hiển thị thành 1 cột */
+            }
+
+            .skill-category {
+                margin-bottom: 2rem;
+            }
         }
 
-        .contact-info h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2E1A47;
-            margin-bottom: 10px;
-        }
-
-        .contact-info p {
-            font-size: 14px;
-            color: #2E1A47;
-            margin: 8px 0;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .contact-info p:hover {
-            transform: translateX(8px);
-            color: #6A5ACD;
-        }
-
-        .contact-info p::before {
-            content: '➤ ';
-            color: #6A5ACD;
-        }
-
-        .contact-info a {
-            color: #2E1A47;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info a:hover {
-            color: #6A5ACD;
-        }
-
-        /* === RESPONSIVE DESIGN === */
-        /* Điều chỉnh giao diện cho thiết bị di động */
-        @media (max-width: 600px) {
-  #welcome { display: none !important; }
-            nav {
-                width: 85%;
-                right: -85%;
-                border-radius: 12px 0 0 12px;
-                box-shadow: -4px 0 12px rgba(0, 0, 0, 0.4);
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
             }
 
-            nav ul {
-                gap: 15px;
-                padding: 25px 15px;
+            .hero-title {
+                font-size: 2.5rem;
             }
 
-            nav ul li a {
-                font-size: 14px;
-                padding: 10px 20px;
-                min-width: 120px;
-                border-radius: 40px;
+            .hero-subtitle {
+                font-size: 1rem;
             }
 
-            .swipe-hint {
-                width: 30px;
-                height: 30px;
-                background-size: 20px;
-                left: 10px;
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
             }
 
-            #toggle-nav {
-                top: 12px;
-                right: 15px;
-                width: 44px;
-                height: 44px;
-                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(224, 224, 224, 0.5);
+            .section {
+                padding: 2rem 1rem;
+                margin: 2rem auto;
             }
 
-            .video-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-                padding: 10px;
+            .section h2 {
+                font-size: 1.8rem;
             }
 
-            .video-card {
-                padding: 8px;
-                border: 1px solid rgba(224, 224, 224, 0.4);
-                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-            }
-
-            .video-card.expanded {
-                max-width: 100%;
-                margin: 10px 0;
-            }
-
-            .video-card video {
-                max-width: 100%;
-                max-height: 150px;
-                border-radius: 8px;
-            }
-
-            .video-card.expanded video {
-                max-height: 300px;
-            }
-
-            .video-card h3 {
-                font-size: 14px;
-                padding: 8px 0;
-                width: 95%;
-                margin-top: 6px;
-            }
-
-            .video-card.expanded h3 {
-                font-size: 16px;
-                padding: 12px 0;
-            }
-
-            .toggle-videos {
-                padding: 8px 16px;
-                font-size: 14px;
-                margin: 15px auto 0;
-            }
-
-            header h1 {
-                font-size: 24px;
-                padding: 8px 16px;
-            }
-
-            #welcome h2 {
-                font-size: 22px;
-                padding: 8px 16px;
-            }
-
-            #welcome p {
-                font-size: 13px;
-                max-width: 90%;
-            }
-
-            #welcome a.cta-button {
-                font-size: 14px;
-                padding: 8px 20px;
-            }
-
-            .video-section h2 {
-                font-size: 22px;
-                padding: 8px 16px;
-            }
-
-            .contact-info {
-                padding: 12px;
-            }
-
-            .contact-info h3 {
-                font-size: 16px;
-            }
-
-            .contact-info p {
-                font-size: 11px;
+            .glassmorphism-card {
+                padding: 2rem 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- === NAVIGATION BAR === -->
-    <!-- Menu điều hướng trượt từ phải, thêm mục mới trong ul -->
-    <nav id="nav-bar">
-        <ul>
-            <!-- Để thêm mục menu mới:
-               - Thêm <li><a href="#section-id">Tên mục</a></li>
-               - Đảm bảo section-id khớp với id của section
-               - Hiệu ứng staggered sẽ tự áp dụng (thêm transition-delay nếu cần)
-            -->
-            <li><a href="#Professional">Chuyên Nghiệp</a></li>
-            <li><a href="#Dynamic">Năng Động</a></li>
-            <li><a href="#Creative">Sáng Tạo</a></li>
-            <li><a href="#Warm-Friendly">Ấm Áp & Thân Thiện</a></li>
-            <li><a href="#Unique-Bold">Độc Đáo & Cá Tính</a></li>
-            <li><a href="#Bilingual">Song Ngữ Anh-Việt</a></li>
-        </ul>
-        <div class="swipe-hint"></div>
-    </nav>
-    <button id="toggle-nav">
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </button>
-
-    <!-- === WELCOME SECTION === -->
-    <!-- Màn hình chào với hiệu ứng zoom -->
-    <section id="welcome">
-        <h2>Khám Phá Bộ Sưu Tập Video Mẫu</h2>
-        <p>Thưởng thức những video độc đáo và chất lượng, được tuyển chọn để mang đến trải nghiệm tuyệt vời. Bắt đầu ngay!</p>
-        <a href="#music" class="cta-button">Xem Ngay</a>
-    </section>
-
-    <!-- === MAIN HEADER === -->
-    <header>
-        <h1>Bộ Sưu Tập Video Mẫu</h1>
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="logo">
+                [Tên Của Bạn]
+            </div>
+            <ul class="nav-links">
+                <li><a href="#personal-info">Thông tin</a></li>
+                <li><a href="#career-objective">Mục tiêu</a></li>
+                <li><a href="#skills">Kỹ năng</a></li>
+                <li><a href="#education">Học vấn</a></li>
+                <li><a href="#experience">Kinh nghiệm</a></li>
+                <li><a href="#projects">Dự án</a></li>
+                <li><a href="#certifications">Chứng chỉ</a></li>
+                <li><a href="#languages">Ngoại ngữ</a></li>
+                <li><a href="#optional">Khác</a></li>
+            </ul>
+        </nav>
     </header>
 
+    <main>
+        <section id="hero" class="hero-section">
+            <video autoplay muted loop id="hero-video" src="https://assets.mixkit.co/videos/preview/mixkit-abstract-glowing-dots-on-a-blue-background-28315-small.mp4"></video>
+            <div class="hero-overlay">
+                <h1 class="hero-title">Chào, tôi là <span>
+                    [Tên của bạn]
+                </span></h1>
+                <p class="hero-subtitle">
+                    Một [Vị trí mong muốn] sáng tạo và tận tâm
+                </p>
+                <a href="#contact" class="cta-button">Liên hệ</a>
+            </div>
+        </section>
 
-<!--===================================================================================================================================================================================================-->>
-    <!-- === VIDEO SECTIONS === -->
-    <!-- Section video mẫu, sao chép để thêm section mới -->
-    <section id="Professional" class="video-section">
-        <h2>Chuyên Nghiệp (Professional)</h2>
-        <div class="video-grid">
-            <!-- Để thêm video mới:
-               - Sao chép div.video-card và thay đổi:
-                 + src trong <source> (URL video từ Cloudinary)
-                 + poster trong <video> (URL hình ảnh đại diện)
-                 + data-description và nội dung trong <h3>
-                 + Thêm <span class="badge"> (tùy chọn) nếu muốn
-               - Đảm bảo class hidden-video được thêm nếu video không hiển thị mặc định
-            -->
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+1">
-                    <source src="CLOUDINARY_VIDEO_URL_1" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc sôi động với giai điệu cuốn hút">Video Âm Nhạc 1</h3>
-                <span class="badge">Mới</span>
+        <section id="personal-info" class="section glassmorphism-card">
+            <h2>1. Thông tin cá nhân</h2>
+            
+            <div class="avatar-container">
+                <img src="CN1.jpg" alt="Ảnh đại diện của [Tên của bạn]" class="avatar">
             </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+2">
-                    <source src="CLOUDINARY_VIDEO_URL_2" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng">Video Âm Nhạc 2</h3>
-                <span class="badge">Phổ Biến</span>
+            <div class="info-grid">
+                <p><strong>Họ và tên:</strong> 
+                    [Họ và Tên của bạn]
+                </p>
+                <p><strong>Ngày sinh:</strong> 
+                    [Ngày sinh - Tùy chọn]
+                </p>
+                <p><strong>Điện thoại:</strong> 
+                    [Số điện thoại]
+                </p>
+                <p><strong>Email:</strong> <a href="mailto:[Email chuyên nghiệp]">
+                    [Email chuyên nghiệp]
+                </a></p>
+                <p><strong>Địa chỉ:</strong> 
+                    [Địa chỉ - Tùy chọn]
+                </p>
+                <p><strong>Website/LinkedIn:</strong> <a href="
+                    [Link]" target="_blank">
+                    [Link Website/LinkedIn]
+                </a></p>
             </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+3">
-                    <source src="CLOUDINARY_VIDEO_URL_3" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Khám phá bản hit mới nhất của năm">Video Âm Nhạc 3</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+4">
-                    <source src="CLOUDINARY_VIDEO_URL_4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc acoustic nhẹ nhàng và cảm xúc">Video Âm Nhạc 4</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+5">
-                    <source src="CLOUDINARY_VIDEO_URL_5" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc phong cách retro">Video Âm Nhạc 5</h3>
-                <span class="badge">Nổi Bật</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+6">
-                    <source src="CLOUDINARY_VIDEO_URL_6" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản phối EDM đầy năng lượng">Video Âm Nhạc 6</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+7">
-                    <source src="CLOUDINARY_VIDEO_URL_7" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc jazz thư giãn cho buổi tối">Video Âm Nhạc 7</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+8">
-                    <source src="CLOUDINARY_VIDEO_URL_8" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc truyền cảm hứng">Video Âm Nhạc 8</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+9">
-                    <source src="CLOUDINARY_VIDEO_URL_9" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản cover acoustic độc đáo">Video Âm Nhạc 9</h3>
-            </div>
-        </div>
-        <button class="toggle-videos" data-section="Professional" data-state="more">Xem Thêm</button>
-    </section>
+        </section>
 
+        <section id="career-objective" class="section glassmorphism-card">
+            <h2>2. Mục tiêu nghề nghiệp</h2>
+            <p>
+                Tôi mong muốn được làm việc trong môi trường sáng tạo, nơi tôi có thể áp dụng kỹ năng thiết kế UI/UX để mang lại trải nghiệm người dùng tuyệt vời và phát triển chuyên môn trong lĩnh vực thiết kế sản phẩm số.
+            </p>
+        </section>
 
+        <section id="skills" class="section glassmorphism-card">
+            <h2>3. Kỹ năng</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Kỹ năng chuyên môn (Technical Skills)</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>Photoshop</li>
+                        <li>SQL</li>
+                        <li>HTML/CSS/JS</li>
+                        <li>React.js</li>
+                        <li>UI/UX Design</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Kỹ năng mềm (Soft Skills)</h3>
+                    <ul>
+                        <li>Làm việc nhóm</li>
+                        <li>Giao tiếp</li>
+                        <li>Quản lý thời gian</li>
+                        <li>Giải quyết vấn đề</li>
+                        <li>Tư duy phản biện</li>
+                        <li>Thích nghi nhanh</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-<!--===================================================================================================================================================================================================-->>
-    <section id="Dynamic" class="video-section">
-        <h2>CV Năng Động (Dynamic)</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+1">
-                    <source src="CLOUDINARY_VIDEO_URL_1" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng"></h3>Video Âm Nhạc 1</h3>
-                <span class="badge">Mới</span>
+        <section id="education" class="section glassmorphism-card">
+            <h2>4. Trình độ học vấn</h2>
+            <div class="education-item">
+                <h3>
+                    [Tên trường]
+                </h3>
+                <p><strong>Ngành:</strong> 
+                    [Ngành học]
+                </p>
+                <p><strong>Thời gian:</strong> 
+                    [Thời gian học]
+                </p>
+                <p><strong>Điểm trung bình:</strong> 
+                    [Điểm trung bình - nếu nổi bật]
+                </p>
             </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+2">
-                    <source src="CLOUDINARY_VIDEO_URL_2" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng">Video Âm Nhạc 2</h3>
-                <span class="badge">Phổ Biến</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+3">
-                    <source src="CLOUDINARY_VIDEO_URL_3" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Khám phá bản hit mới nhất của năm">Video Âm Nhạc 3</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+4">
-                    <source src="CLOUDINARY_VIDEO_URL_4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc acoustic nhẹ nhàng và cảm xúc">Video Âm Nhạc 4</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+5">
-                    <source src="CLOUDINARY_VIDEO_URL_5" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc phong cách retro">Video Âm Nhạc 5</h3>
-                <span class="badge">Nổi Bật</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+6">
-                    <source src="CLOUDINARY_VIDEO_URL_6" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản phối EDM đầy năng lượng">Video Âm Nhạc 6</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+7">
-                    <source src="CLOUDINARY_VIDEO_URL_7" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc jazz thư giãn cho buổi tối">Video Âm Nhạc 7</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+8">
-                    <source src="CLOUDINARY_VIDEO_URL_8" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc truyền cảm hứng">Video Âm Nhạc 8</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+9">
-                    <source src="CLOUDINARY_VIDEO_URL_9" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản cover acoustic độc đáo">Video Âm Nhạc 9</h3>
-            </div>
-        </div>
-        <button class="toggle-videos" data-section="Dynamic" data-state="more">Xem Thêm</button>
-    </section>
+            </section>
 
+        <section id="experience" class="section glassmorphism-card">
+            <h2>5. Kinh nghiệm làm việc</h2>
+            <div class="experience-item">
+                <h3>
+                    [Vị trí công việc] tại [Tên công ty / tổ chức]
+                </h3>
+                <p class="duration">
+                    [Thời gian làm việc]
+                </p>
+                <ul>
+                    <li>Thiết kế và triển khai giao diện web cho khách hàng doanh nghiệp, <strong>tăng tỷ lệ chuyển đổi 20%</strong>.</li>
+                    <li>Hợp tác với nhóm phát triển để tối ưu hiệu suất hệ thống.</li>
+                    <li>Tham gia nghiên cứu người dùng và phân tích dữ liệu để cải thiện trải nghiệm sản phẩm.</li>
+                </ul>
+            </div>
+            </section>
 
+        <section id="projects" class="section glassmorphism-card">
+            <h2>6. Dự án</h2>
+            <div class="project-item">
+                <h3>
+                    [Tên dự án]
+                </h3>
+                <p><strong>Công nghệ sử dụng:</strong> 
+                    [Công nghệ sử dụng]
+                </p>
+                <p><strong>Vai trò:</strong> 
+                    [Vai trò của bạn]
+                </p>
+                <p><strong>Kết quả/Link:</strong> <a href="
+                    [Link demo/GitHub]" target="_blank">
+                    [Link demo/GitHub]
+                </a></p>
+                <p>
+                    [Mô tả ngắn về dự án và kết quả đạt được]
+                </p>
+            </div>
+            </section>
 
-    
-<!--===================================================================================================================================================================================================-->>
-    <section id="Creative" class="video-section">
-        <h2>CV Sáng Tạo (Creative)</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+1">
-                    <source src="CLOUDINARY_VIDEO_URL_1" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc sôi động với giai điệu cuốn hút">Video Âm Nhạc 1</h3>
-                <span class="badge">Mới</span>
+        <section id="certifications" class="section glassmorphism-card">
+            <h2>7. Chứng chỉ</h2>
+            <div class="certification-item">
+                <h3>
+                    [Tên chứng chỉ]
+                </h3>
+                <p><strong>Tổ chức cấp:</strong> 
+                    [Tổ chức cấp]
+                </p>
+                <p><strong>Thời gian:</strong> 
+                    [Thời gian]
+                </p>
             </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+2">
-                    <source src="CLOUDINARY_VIDEO_URL_2" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng">Video Âm Nhạc 2</h3>
-                <span class="badge">Phổ Biến</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+3">
-                    <source src="CLOUDINARY_VIDEO_URL_3" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Khám phá bản hit mới nhất của năm">Video Âm Nhạc 3</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+4">
-                    <source src="CLOUDINARY_VIDEO_URL_4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc acoustic nhẹ nhàng và cảm xúc">Video Âm Nhạc 4</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+5">
-                    <source src="CLOUDINARY_VIDEO_URL_5" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc phong cách retro">Video Âm Nhạc 5</h3>
-                <span class="badge">Nổi Bật</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+6">
-                    <source src="CLOUDINARY_VIDEO_URL_6" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản phối EDM đầy năng lượng">Video Âm Nhạc 6</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+7">
-                    <source src="CLOUDINARY_VIDEO_URL_7" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc jazz thư giãn cho buổi tối">Video Âm Nhạc 7</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+8">
-                    <source src="CLOUDINARY_VIDEO_URL_8" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc truyền cảm hứng">Video Âm Nhạc 8</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+9">
-                    <source src="CLOUDINARY_VIDEO_URL_9" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản cover acoustic độc đáo">Video Âm Nhạc 9</h3>
-            </div>
-        </div>
-        <button class="toggle-videos" data-section="Creative" data-state="more">Xem Thêm</button>
-    </section>
+            </section>
 
-    
+        <section id="languages" class="section glassmorphism-card">
+            <h2>8. Ngoại ngữ</h2>
+            <div class="language-item">
+                <h3>Tiếng Anh</h3>
+                <p>
+                    IELTS 6.5, Giao tiếp tốt
+                </p>
+            </div>
+            </section>
 
-    
-<!--===================================================================================================================================================================================================-->>
-    <section id="Warm-Friendly" class="video-section">
-        <h2>CV Ấm Áp & Thân Thiện (Warm & Friendly)</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+1">
-                    <source src="CLOUDINARY_VIDEO_URL_1" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc sôi động với giai điệu cuốn hút">Video Âm Nhạc 1</h3>
-                <span class="badge">Mới</span>
+        <section id="optional" class="section glassmorphism-card">
+            <h2>9. Hoạt động ngoại khóa / Tình nguyện / Sở thích</h2>
+            <div class="optional-content">
+                <p><strong>Hoạt động ngoại khóa:</strong> 
+                    Thành viên CLB [Tên CLB], tham gia tổ chức sự kiện X.
+                </p>
+                <p><strong>Tình nguyện:</strong> 
+                    Tình nguyện viên cho tổ chức [Tên tổ chức], hỗ trợ hoạt động Y.
+                </p>
+                <p><strong>Sở thích:</strong> 
+                    Đọc sách về công nghệ, chơi bóng đá, chụp ảnh.
+                </p>
             </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+2">
-                    <source src="CLOUDINARY_VIDEO_URL_2" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng">Video Âm Nhạc 2</h3>
-                <span class="badge">Phổ Biến</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+3">
-                    <source src="CLOUDINARY_VIDEO_URL_3" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Khám phá bản hit mới nhất của năm">Video Âm Nhạc 3</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+4">
-                    <source src="CLOUDINARY_VIDEO_URL_4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc acoustic nhẹ nhàng và cảm xúc">Video Âm Nhạc 4</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+5">
-                    <source src="CLOUDINARY_VIDEO_URL_5" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc phong cách retro">Video Âm Nhạc 5</h3>
-                <span class="badge">Nổi Bật</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+6">
-                    <source src="CLOUDINARY_VIDEO_URL_6" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản phối EDM đầy năng lượng">Video Âm Nhạc 6</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+7">
-                    <source src="CLOUDINARY_VIDEO_URL_7" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc jazz thư giãn cho buổi tối">Video Âm Nhạc 7</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+8">
-                    <source src="CLOUDINARY_VIDEO_URL_8" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc truyền cảm hứng">Video Âm Nhạc 8</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+9">
-                    <source src="CLOUDINARY_VIDEO_URL_9" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản cover acoustic độc đáo">Video Âm Nhạc 9</h3>
-            </div>
-        </div>
-        <button class="toggle-videos" data-section="Warm-Friendly" data-state="more">Xem Thêm</button>
-    </section>
+        </section>
 
+        <section id="contact" class="section glassmorphism-card">
+            <h2>Liên hệ</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Tên của bạn</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Lời nhắn</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">Gửi tin nhắn</button>
+            </form>
+        </section>
+    </main>
 
-
-    
-<!--===================================================================================================================================================================================================-->>
-    <section id="Unique-Bold" class="video-section">
-        <h2>CV Độc Đáo & Cá Tính (Unique & Bold)</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+1">
-                    <source src="CLOUDINARY_VIDEO_URL_1" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc sôi động với giai điệu cuốn hút">Video Âm Nhạc 1</h3>
-                <span class="badge">Mới</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+2">
-                    <source src="CLOUDINARY_VIDEO_URL_2" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng">Video Âm Nhạc 2</h3>
-                <span class="badge">Phổ Biến</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+3">
-                    <source src="CLOUDINARY_VIDEO_URL_3" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Khám phá bản hit mới nhất của năm">Video Âm Nhạc 3</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+4">
-                    <source src="CLOUDINARY_VIDEO_URL_4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc acoustic nhẹ nhàng và cảm xúc">Video Âm Nhạc 4</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+5">
-                    <source src="CLOUDINARY_VIDEO_URL_5" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc phong cách retro">Video Âm Nhạc 5</h3>
-                <span class="badge">Nổi Bật</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+6">
-                    <source src="CLOUDINARY_VIDEO_URL_6" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản phối EDM đầy năng lượng">Video Âm Nhạc 6</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+7">
-                    <source src="CLOUDINARY_VIDEO_URL_7" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc jazz thư giãn cho buổi tối">Video Âm Nhạc 7</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+8">
-                    <source src="CLOUDINARY_VIDEO_URL_8" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc truyền cảm hứng">Video Âm Nhạc 8</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+9">
-                    <source src="CLOUDINARY_VIDEO_URL_9" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản cover acoustic độc đáo">Video Âm Nhạc 9</h3>
-            </div>
-        </div>
-        <button class="toggle-videos" data-section="Unique-Bold" data-state="more">Xem Thêm</button>
-    </section>
-
-
-
-    
-<!--===================================================================================================================================================================================================-->>
-    <section id="Bilingual" class="video-section">
-        <h2>CV Song Ngữ Anh-Việt (Bilingual)</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+1">
-                    <source src="CLOUDINARY_VIDEO_URL_1" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc sôi động với giai điệu cuốn hút">Video Âm Nhạc 1</h3>
-                <span class="badge">Mới</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+2">
-                    <source src="CLOUDINARY_VIDEO_URL_2" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Hòa mình vào âm nhạc thư giãn và sâu lắng">Video Âm Nhạc 2</h3>
-                <span class="badge">Phổ Biến</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+3">
-                    <source src="CLOUDINARY_VIDEO_URL_3" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Khám phá bản hit mới nhất của năm">Video Âm Nhạc 3</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+4">
-                    <source src="CLOUDINARY_VIDEO_URL_4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc acoustic nhẹ nhàng và cảm xúc">Video Âm Nhạc 4</h3>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+5">
-                    <source src="CLOUDINARY_VIDEO_URL_5" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc phong cách retro">Video Âm Nhạc 5</h3>
-                <span class="badge">Nổi Bật</span>
-            </div>
-            <div class="video-card">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+6">
-                    <source src="CLOUDINARY_VIDEO_URL_6" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản phối EDM đầy năng lượng">Video Âm Nhạc 6</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+7">
-                    <source src="CLOUDINARY_VIDEO_URL_7" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Nhạc jazz thư giãn cho buổi tối">Video Âm Nhạc 7</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+8">
-                    <source src="CLOUDINARY_VIDEO_URL_8" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Video âm nhạc truyền cảm hứng">Video Âm Nhạc 8</h3>
-            </div>
-            <div class="video-card hidden-video">
-                <video loading="lazy" muted poster="https://via.placeholder.com/360x200?text=Âm+Nhạc+9">
-                    <source src="CLOUDINARY_VIDEO_URL_9" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ video.
-                </video>
-                <h3 data-description="Bản cover acoustic độc đáo">Video Âm Nhạc 9</h3>
-            </div>
-        </div>
-        <button class="toggle-videos" data-section="Bilingual" data-state="more">Xem Thêm</button>
-    </section>
-
-
-
-<!--===================================================================================================================================================================================================-->>
-<!--===================================================================================================================================================================================================-->>
-    <!-- === FOOTER === -->
     <footer>
-        <p>© 2025 Bộ Sưu Tập Video Mẫu. All rights reserved.</p>
-        <div class="contact-info">
-            <h3>Thông Tin Liên Hệ</h3>
-            <p>Tên: Ngọc Quýy</p>
-            <p>Email: <a href="mailto:ngquyy2006@gmail.com">ngquyy2006@gmail.com</a></p>
-            <p>Facebook: <a href="https://facebook.com/ngocquyy" target="_blank">facebook.com/ngocquyy</a></p>
-            <p>Instagram: <a href="https://instagram.com/ngocquyy" target="_blank">instagram.com/ngocquyy</a></p>
-        </div>
+        <p>&copy; 2025 
+            [Tên của bạn]. All rights reserved.
+        </p>
     </footer>
 
-    <!-- === JAVASCRIPT === -->
     <script>
-        // === SMOOTH SCROLLING FOR MENU ===
-        // Điều hướng mượt mà khi click vào menu
-        document.querySelectorAll('nav ul li a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    navBar.classList.remove('active');
-                    toggleNavButton.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Header Sticky & Transform (Header dính và hiệu ứng chuyển đổi)
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled'); // Thêm class 'scrolled' khi cuộn xuống
+                } else {
+                    header.classList.remove('scrolled'); // Xóa class 'scrolled' khi ở đầu trang
                 }
             });
-        });
 
-        // === DISABLE WELCOME ANIMATION ON MOBILE ===
-        // Tắt animation welcome trên mobile để cải thiện hiệu suất
-        if (window.innerWidth <= 600) {
-            const welcomeSection = document.getElementById('welcome');
-            welcomeSection.style.animation = 'none';
-            setTimeout(() => {
-                welcomeSection.style.display = 'none';
-            }, 100);
-        } else {
-            // Hiệu ứng cho welcome section trên desktop
-            const welcomeElements = document.querySelectorAll('#welcome h2, #welcome p, #welcome a.cta-button');
-            setTimeout(() => {
-                welcomeElements.forEach((el, index) => {
-                    setTimeout(() => {
-                        el.classList.add('visible');
-                    }, index * 200);
-                });
-            }, 500);
-        }
-
-        // === SECTION ANIMATION ===
-        // Hiệu ứng xuất hiện cho các section video
-        const videoSections = document.querySelectorAll('.video-section');
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Hiệu ứng cho từng video card
-                    const videoCards = entry.target.querySelectorAll('.video-card:not(.hidden-video)');
-                    videoCards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, index * 100);
-                    });
-                }
-            });
-        }, { threshold: 0.1 });
-
-        videoSections.forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-        // === HEADER ANIMATION ===
-        // Hiệu ứng cho tiêu đề chính
-        const headerTitle = document.querySelector('header h1');
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                headerTitle.classList.add('visible');
-            }, 500);
-        });
-
-        // === FOOTER ANIMATION ===
-        // Hiệu ứng cho footer
-        const footerContact = document.querySelector('.contact-info');
-        const footerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.2 });
-        footerObserver.observe(footerContact);
-
-        // === TOGGLE NAVIGATION BAR ===
-        // Bật/tắt menu điều hướng
-        const navBar = document.getElementById('nav-bar');
-        const toggleNavButton = document.getElementById('toggle-nav');
-
-        toggleNavButton.addEventListener('click', () => {
-            navBar.classList.toggle('active');
-            toggleNavButton.classList.toggle('active');
-        });
-
-        // === SWIPE FUNCTIONALITY ===
-        // Hỗ trợ vuốt ngang menu trên mobile và kéo trên desktop
-        const navUl = navBar.querySelector('ul');
-        let isDragging = false;
-        let startX, scrollLeft;
-
-        navUl.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].pageX - navUl.offsetLeft;
-            scrollLeft = navUl.scrollLeft;
-        });
-
-        navUl.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.touches[0].pageX - navUl.offsetLeft;
-            const walk = (x - startX) * 2;
-            navUl.scrollLeft = scrollLeft - walk;
-        });
-
-        navUl.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // Desktop drag support
-        navUl.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - navUl.offsetLeft;
-            scrollLeft = navUl.scrollLeft;
-            navUl.style.cursor = 'grabbing';
-        });
-
-        navUl.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - navUl.offsetLeft;
-            const walk = (x - startX) * 2;
-            navUl.scrollLeft = scrollLeft - walk;
-        });
-
-        navUl.addEventListener('mouseup', () => {
-            isDragging = false;
-            navUl.style.cursor = 'grab';
-        });
-
-        navUl.addEventListener('mouseleave', () => {
-            isDragging = false;
-            navUl.style.cursor = 'grab';
-        });
-
-        // === VIDEO AUTOPLAY AND EXPANSION ===
-        // Tự động phát video khi vào viewport và mở rộng khi click
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        const videos = document.querySelectorAll('.video-card video');
-        let currentlyExpanded = null;
-
-        function toggleVideoExpansion(videoCard, video) {
-            if (videoCard.classList.contains('expanded')) {
-                videoCard.classList.remove('expanded');
-                video.removeAttribute('controls');
-                video.setAttribute('muted', '');
-                video.muted = true;
-                currentlyExpanded = null;
-                video.play().catch(error => {
-                    console.log('Autoplay after collapse prevented:', error);
-                });
-            } else {
-                if (currentlyExpanded) {
-                    currentlyExpanded.classList.remove('expanded');
-                    const prevVideo = currentlyExpanded.querySelector('video');
-                    prevVideo.removeAttribute('controls');
-                    prevVideo.setAttribute('muted', '');
-                    prevVideo.muted = true;
-                    prevVideo.pause();
-                    prevVideo.currentTime = 0;
-                }
-                videoCard.classList.add('expanded');
-                video.setAttribute('controls', '');
-                video.removeAttribute('muted');
-                video.muted = false;
-                currentlyExpanded = videoCard;
-                video.play().catch(error => {
-                    console.log('Autoplay on expand prevented:', error);
-                });
-                videos.forEach(v => {
-                    if (v !== video) {
-                        v.setAttribute('muted', '');
-                        v.muted = true;
-                        if (!v.paused) {
-                            v.pause();
-                            v.currentTime = 0;
-                        }
-                    }
-                });
-                videoCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const video = entry.target;
-                const videoCard = video.closest('.video-card');
-                if (entry.isIntersecting && !videoCard.classList.contains('expanded')) {
-                    if (video.paused && !video.ended) {
-                        video.setAttribute('muted', '');
-                        video.muted = true;
-                        video.play().catch(error => {
-                            console.log('Autoplay prevented:', error);
+            // 2. Smooth Scrolling cho các liên kết điều hướng (Cuộn mượt mà)
+            document.querySelectorAll('.nav-links a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+                    const targetId = this.getAttribute('href').substring(1); // Lấy ID của section mục tiêu
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - header.offsetHeight, // Cuộn đến vị trí section, trừ đi chiều cao header cố định
+                            behavior: 'smooth' // Hiệu ứng cuộn mượt
                         });
                     }
-                } else if (!entry.isIntersecting && !videoCard.classList.contains('expanded')) {
-                    if (!video.paused) {
-                        video.setAttribute('muted', '');
-                        video.muted = true;
-                        video.pause();
-                        video.currentTime = 0;
+                });
+            });
+
+            // 3. Video nền cho phần Hero (ví dụ URL đã được cung cấp, hãy thay thế nếu cần)
+            // Bạn có thể thay đổi URL video tại đây nếu muốn sử dụng video khác.
+            // Nếu không muốn có video, bạn có thể xóa hoàn toàn thẻ <video> trong phần <section id="hero"> của HTML.
+
+            // 4. Scroll Animations cho các section (Hiệu ứng mờ dần và di chuyển lên khi cuộn)
+            const sections = document.querySelectorAll('.section'); // Chọn tất cả các section có class 'section'
+            const observerOptions = {
+                root: null, // Theo dõi viewport
+                rootMargin: '0px',
+                threshold: 0.1 // Kích hoạt khi 10% của section hiển thị trên màn hình
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { // Nếu section đang hiển thị trong viewport
+                        entry.target.style.opacity = '1'; // Làm cho section hiển thị rõ ràng
+                        entry.target.style.transform = 'translateY(0)'; // Di chuyển section về vị trí ban đầu
+                        observer.unobserve(entry.target); // Ngừng theo dõi section sau khi animation hoàn tất
                     }
-                }
-            });
-        }, { threshold: 0.5 });
+                });
+            }, observerOptions);
 
-        document.querySelectorAll('.video-card').forEach(videoCard => {
-            const video = videoCard.querySelector('video');
-            videoCard.addEventListener('click', (e) => {
-                if (videoCard.classList.contains('expanded') && e.target.closest('video') && e.target.tagName !== 'VIDEO') {
-                    return;
-                }
-                e.preventDefault();
-                toggleVideoExpansion(videoCard, video);
+            sections.forEach(section => {
+                section.style.opacity = '0'; // Ẩn section ban đầu
+                section.style.transform = 'translateY(50px)'; // Di chuyển section xuống dưới 50px
+                section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out'; // Hiệu ứng chuyển động
+                sectionObserver.observe(section); // Bắt đầu theo dõi section
             });
 
-            videoObserver.observe(video);
-            video.setAttribute('playsinline', '');
-            video.setAttribute('webkit-playsinline', '');
-            video.removeAttribute('controls');
-            video.setAttribute('muted', '');
-            video.muted = true;
-            video.addEventListener('loadedmetadata', () => {
-                if (videoCard.classList.contains('expanded')) {
-                    video.setAttribute('controls', '');
-                    video.removeAttribute('muted');
-                    video.muted = false;
+            // 5. Contact Form Real-time Validation (Kiểm tra hợp lệ biểu mẫu liên hệ theo thời gian thực)
+            const contactForm = document.querySelector('.contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            // Hàm kiểm tra hợp lệ cho từng input
+            const validateInput = (input, pattern) => {
+                if (!pattern.test(input.value)) {
+                    input.style.borderColor = 'red'; // Đổi màu viền sang đỏ nếu không hợp lệ
                 } else {
-                    video.setAttribute('muted', '');
-                    video.muted = true;
+                    input.style.borderColor = 'var(--secondary-neon)'; // Đổi màu viền sang màu neon nếu hợp lệ
                 }
-            });
-        });
+            };
 
-        // === VIDEO TOGGLE FUNCTIONALITY ===
-        // Chuyển đổi hiển thị video ẩn/hiện
-        document.querySelectorAll('.toggle-videos').forEach(button => {
-            button.addEventListener('click', function() {
-                const sectionId = this.getAttribute('data-section');
-                const section = document.getElementById(sectionId);
-                const videos = section.querySelectorAll('.video-card');
-                const isMobile = window.innerWidth <= 600;
-                const initialLimit = isMobile ? 4 : 6;
+            // Thêm sự kiện 'input' để kiểm tra khi người dùng gõ
+            nameInput.addEventListener('input', () => validateInput(nameInput, /.+/)); // Tên không được rỗng
+            emailInput.addEventListener('input', () => validateInput(emailInput, /^[^\s@]+@[^\s@]+\.[^\s@]+$/)); // Email đúng định dạng
+            messageInput.addEventListener('input', () => validateInput(messageInput, /.{10,}/)); // Tin nhắn ít nhất 10 ký tự
 
-                if (this.getAttribute('data-state') === 'more') {
-                    videos.forEach((video, index) => {
-                        video.classList.remove('hidden-video');
-                        setTimeout(() => {
-                            video.classList.add('visible');
-                        }, index * 100);
-                    });
-                    this.textContent = 'Ẩn Bớt';
-                    this.setAttribute('data-state', 'less');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Ngăn chặn việc gửi form mặc định của trình duyệt
+
+                // Kiểm tra lại tất cả các trường khi nhấn submit
+                validateInput(nameInput, /.+/);
+                validateInput(emailInput, /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+                validateInput(messageInput, /.{10,}/);
+
+                // Kiểm tra xem tất cả các trường có hợp lệ không
+                if (nameInput.checkValidity() && emailInput.checkValidity() && messageInput.checkValidity()) {
+                    // Nếu tất cả hợp lệ, hiển thị thông báo thành công.
+                    // LƯU Ý: Chức năng gửi form thực tế cần một phần backend (máy chủ) 
+                    // hoặc một dịch vụ bên thứ ba (như Formspree.io) để nhận dữ liệu. 
+                    // Mã hiện tại chỉ hiển thị thông báo trên trình duyệt.
+                    alert('Form đã được gửi thành công! (Lưu ý: Chức năng gửi email cần tích hợp backend/dịch vụ thứ 3)'); 
+                    contactForm.reset(); // Xóa nội dung form sau khi gửi
                 } else {
-                    videos.forEach((video, index) => {
-                        if (index >= initialLimit) {
-                            video.classList.remove('visible');
-                            video.classList.add('hidden-video');
-                            if (video.classList.contains('expanded')) {
-                                video.classList.remove('expanded');
-                                const vid = video.querySelector('video');
-                                vid.removeAttribute('controls');
-                                vid.setAttribute('muted', '');
-                                vid.muted = true;
-                                vid.pause();
-                                vid.currentTime = 0;
-                                currentlyExpanded = null;
-                            }
-                        }
-                    });
-                    this.textContent = 'Xem Thêm';
-                    this.setAttribute('data-state', 'more');
-                }
-            });
-        });
-
-        // === INITIALIZE VIDEO VISIBILITY ===
-        // Khởi tạo hiển thị video ban đầu
-        document.querySelectorAll('.video-section').forEach(section => {
-            const videos = section.querySelectorAll('.video-card');
-            const isMobile = window.innerWidth <= 600;
-            const initialLimit = isMobile ? 4 : 6;
-
-            videos.forEach((video, index) => {
-                if (index >= initialLimit) {
-                    video.classList.add('hidden-video');
-                }
-            });
-
-            const toggleButton = section.querySelector('.toggle-videos');
-            if (videos.length <= initialLimit) {
-                toggleButton.style.display = 'none';
-            }
-        });
-
-        // === HANDLE SCREEN RESIZE ===
-        // Xử lý thay đổi kích thước màn hình
-        window.addEventListener('resize', () => {
-            document.querySelectorAll('.video-section').forEach(section => {
-                const videos = section.querySelectorAll('.video-card');
-                const isMobile = window.innerWidth <= 600;
-                const initialLimit = isMobile ? 4 : 6;
-                const toggleButton = section.querySelector('.toggle-videos');
-
-                if (toggleButton.getAttribute('data-state') === 'more') {
-                    videos.forEach((video, index) => {
-                        if (index >= initialLimit) {
-                            video.classList.add('hidden-video');
-                            video.classList.remove('visible');
-                            if (video.classList.contains('expanded')) {
-                                video.classList.remove('expanded');
-                                const vid = video.querySelector('video');
-                                vid.removeAttribute('controls');
-                                vid.setAttribute('muted', '');
-                                vid.muted = true;
-                                vid.pause();
-                                vid.currentTime = 0;
-                                currentlyExpanded = null;
-                            }
-                        } else {
-                            video.classList.remove('hidden-video');
-                            if (section.classList.contains('visible')) {
-                                setTimeout(() => {
-                                    video.classList.add('visible');
-                                }, index * 100);
-                            }
-                        }
-                    });
-                }
-
-                if (videos.length <= initialLimit) {
-                    toggleButton.style.display = 'none';
-                } else {
-                    toggleButton.style.display = 'block';
+                    alert('Vui lòng kiểm tra lại thông tin đã nhập, có vẻ có lỗi ở đâu đó.');
                 }
             });
         });
     </script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const ctaButton = document.querySelector('#welcome a.cta-button');
-    const welcomeSection = document.getElementById('welcome');
-    ctaButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        welcomeSection.style.display = 'none';
-        // Cuộn lên top
-        window.scrollTo(0, 0);
-    });
-});
-</script>
-
 </body>
 </html>
